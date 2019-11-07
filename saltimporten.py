@@ -19,7 +19,7 @@ app = Flask(__name__)
 def index():
     try:
         meat, veg = get_todays_menu()
-        return f"Today's main course is: *{meal}*. Veg of the week: *{veg}*"
+        return f"Today's main course is: *{meat}*. Veg of the week: *{veg}*"
     except e:
         return "i'm not working today"
 
