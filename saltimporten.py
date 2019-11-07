@@ -1,5 +1,5 @@
 import requests
-from flask import Flask
+from flask import Flask, jsonify
 from bs4 import BeautifulSoup
 
 URL = "https://www.saltimporten.com"
@@ -19,7 +19,10 @@ app = Flask(__name__)
 def index():
     try:
         meat, veg = get_todays_menu()
-        return f"Today's main course is: *{meat}*. Veg of the week: *{veg}*"
+        return jsonify({
+            "response_type": "in_channel",
+            "text": f"Today's main course is: *{meat}*. Veg of the week: *{veg}*"
+        })
     except e:
         return "i'm not working today"
 
