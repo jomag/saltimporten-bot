@@ -13,7 +13,7 @@ def get_todays_menu():
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     try:
         meal = get_todays_menu()
