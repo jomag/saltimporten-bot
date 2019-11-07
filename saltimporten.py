@@ -8,19 +8,22 @@ def get_todays_menu():
     response = requests.get(URL, verify=False)
     soup = BeautifulSoup(response.text, "html.parser")
     current = soup.find("li", class_="current")
-    meal = current.find("div", class_="meal")
-    return meal.string
+    meat = current.find("div", class_="meal")
+    veg = soup.find("div", class_="veg")
+    veg = veg.parent.find("div", class_="meal")
+    return meat.string, veg.string
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     try:
-        meal = get_todays_menu()
-        return f"Todays main course is: {meal}"
+        meat, veg = get_todays_menu()
+        return f"Today's main course is: *{meal}*. Veg of the week: *{veg}*"
     except e:
         return "i'm not working today"
 
 if __name__ == "__main__":
-    app.run(threaded=True, port=5000)
+    print(get_todays_menu())
+
 
